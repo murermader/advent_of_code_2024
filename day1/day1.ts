@@ -110,13 +110,13 @@ async function day1_part_two() {
 
 async function measure() {
     console.time('day1_with_heaps');
-    await day1_with_heaps();
+    await day1_with_heaps(); // 2285373
     console.timeEnd('day1_with_heaps');
 
     console.time('day1_sorted_lits');
-    await day1_sorted_lits();
+    await day1_sorted_lits(); // 2285373
     console.timeEnd('day1_sorted_lits');
 }
 
-// measure().catch(console.error);
-day1_part_two().catch(console.error);
+measure().catch(console.error);
+day1_part_two().catch(console.error);  // 21142653
