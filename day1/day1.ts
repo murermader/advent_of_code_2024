@@ -66,6 +66,45 @@ async function day1_sorted_lits() {
     console.log(total_distance)
 }
 
+async function day1_part_two() {
+    const data = await readFile('input.txt', 'utf-8');
+    const lines = data.split('\n');
+    const left: number[] = [];
+    const right: Record<number, number> = [];
+
+    for (const line of lines) {
+        if (!line.trim()) {
+            continue
+        }
+        const parts = line.trim().split(/\s+/).map(Number);
+        console.assert(parts.length === 2, 'Invalid input');
+        const [left_num, right_num] = parts
+        left.push(left_num)
+
+        // Count the occurrences of numbers in the right array.
+        if (right[right_num]){
+            const right_occurences = right[right_num];
+            right[right_num] = right_occurences + 1
+        } else {
+            right[right_num] = 1
+        }
+    }
+
+    let total_distance = 0
+    for (let i = 0; i < left.length; i++) {
+        const left_num = left[i]
+        // Does not appear in right list -> Skip
+        if (!right[left_num])
+        {
+            continue
+        }
+        const num_occurences = right[left_num]
+        const total_value = left_num * num_occurences
+        total_distance += total_value
+    }
+    console.log(total_distance)
+}
+
 // day1_with_heaps().catch(console.error);
 // day1_sorted_lits().catch(console.error);
 
@@ -79,4 +118,5 @@ async function measure() {
     console.timeEnd('day1_sorted_lits');
 }
 
-measure().catch(console.error);
+// measure().catch(console.error);
+day1_part_two().catch(console.error);
