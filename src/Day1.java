@@ -3,7 +3,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.*;
 
-public class Day1 {
+public class Day1 extends Day {
+
+    public Day1(){
+        super("Historian Hysteria");
+    }
 
     public void partOne() {
         ArrayList<String> lines = readInput();
@@ -17,7 +21,7 @@ public class Day1 {
             totalDiff += diff;
         }
 
-        System.out.println("Total difference: " + totalDiff);
+        System.out.println(totalDiff);
     }
 
     public void partTwo() {
@@ -45,18 +49,7 @@ public class Day1 {
     }
 
     private ArrayList<String> readInput() {
-        ArrayList<String> lines = new ArrayList<>();
-
-        try (BufferedReader br = new BufferedReader(new FileReader("day1/input.txt"))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                lines.add(line);
-            }
-        } catch (IOException e) {
-            System.err.println("Error reading file: " + e.getMessage());
-        }
-
-        return lines;
+        return SharedMethods.readLines("day1/input.txt");
     }
 
     private Numbers getNumbers(List<String> lines){
