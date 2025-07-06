@@ -4,7 +4,7 @@ import java.util.List;
 public class AdventOfCode {
     public static void main(String[] args) {
         Day[] days = {
-                new Day1(),
+//                new Day1(),
                 new Day2()
         };
 
