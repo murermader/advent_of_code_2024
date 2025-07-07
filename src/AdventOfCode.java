@@ -5,7 +5,8 @@ public class AdventOfCode {
     public static void main(String[] args) {
         Day[] days = {
 //                new Day1(),
-                new Day2()
+//                new Day2(),
+                new Day3()
         };
 
         for (Day day : days){
