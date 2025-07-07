@@ -6,7 +6,8 @@ public class AdventOfCode {
         Day[] days = {
 //                new Day1(),
 //                new Day2(),
-                new Day3()
+//                new Day3(),
+                new Day4()
         };
 
         for (Day day : days){
