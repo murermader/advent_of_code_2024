@@ -10,12 +10,11 @@ public class Day4 extends Day {
 
     @Override
     public void partOne() {
+        String input;
         // 1 down right
         // 2 left
         // 3 right
         // 4 up
-
-        String input;
         input = """
                 __X___
                 _SAMX_
@@ -25,7 +24,7 @@ public class Day4 extends Day {
                 """;
 
         try {
-            input = Files.readString(Paths.get("day4","input.txt"));
+            input = Files.readString(Paths.get("day4", "input.txt"));
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -140,6 +139,94 @@ public class Day4 extends Day {
 
     @Override
     public void partTwo() {
+        String input;
+        input = """
+                .M.S......
+                ..A..MSMS.
+                .M.S.MAA..
+                ..A.ASMSM.
+                .M.S.M....
+                ..........
+                S.S.S.S.S.
+                .A.A.A.A..
+                M.M.M.M.M.
+                ..........""";
 
+        try {
+            input = Files.readString(Paths.get("day4", "input.txt"));
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        int xmasCount = 0;
+
+        // 1. convert input string into 2D char array
+        String[] lines = input.split("\n");
+        int colCount = lines.length;
+        int rowCount = 0;
+        char[][] rows = new char[colCount][];
+        for (int row = 0; row < lines.length; row++) {
+            char[] chars = lines[row].toCharArray();
+            rowCount = chars.length;
+            rows[row] = lines[row].toCharArray();
+        }
+
+
+        // 2. iterate 2d array and start search whenever we encounter an X.
+        for (int col = 0; col < colCount; col++) {
+            for (int row = 0; row < rowCount; row++) {
+                char currentChar = rows[col][row];
+
+                if (currentChar != 'A') {
+                    continue;
+                }
+
+                boolean topLeftDownRight = false;
+                boolean topRightDownLeft = false;
+
+                // M
+                //  A
+                //   S
+                if (checkChar(rows, 'M', col - 1, row - 1)
+                        && checkChar(rows, 'S', col + 1, row + 1)) {
+                    topLeftDownRight = true;
+                    System.out.printf("Top left down right (MAS) starting at [%d][%d]\n", col, row);
+                }
+
+                // S
+                //  A
+                //   M
+                if (checkChar(rows, 'S', col - 1, row - 1)
+                        && checkChar(rows, 'M', col + 1, row + 1)) {
+                    topLeftDownRight = true;
+                    System.out.printf("Top left down right (SAM) starting at [%d][%d]\n", col, row);
+                }
+
+                //   M
+                //  A
+                // S
+                if (checkChar(rows, 'M', col - 1, row + 1)
+                        && checkChar(rows, 'S', col + 1, row - 1)) {
+                    topRightDownLeft = true;
+                    System.out.printf("Top right down left (MAS) starting at [%d][%d]\n", col, row);
+                }
+
+                //   S
+                //  A
+                // M
+                if (checkChar(rows, 'S', col - 1, row + 1)
+                        && checkChar(rows, 'M', col + 1, row - 1)) {
+                    topRightDownLeft = true;
+                    System.out.printf("Top right down left (SAM) starting at [%d][%d]\n", col, row);
+                }
+
+                if (topLeftDownRight && topRightDownLeft) {
+                    System.out.printf("XMAS found at [%d][%d]\n", col, row);
+                    xmasCount++;
+                }
+
+            }
+        }
+
+        System.out.println(xmasCount);
     }
 }
